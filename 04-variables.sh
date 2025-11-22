@@ -4,6 +4,10 @@
 #Variable syntax is VAR=DATA but here VAR=NAME and DATA=INPUT
 #Variable names are not case sensetive
 
+TIMESTAMP=$(date)
+
+echo "Script started at: $TIMESTAMP"
+
 PERSON1=Vignesh # no space btw and after =
 PERSON2=Abhi # to call the variable we need to use ($)
 
