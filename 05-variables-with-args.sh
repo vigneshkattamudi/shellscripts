@@ -9,6 +9,6 @@ person2=$2 #Lower case
 #We have to give the NAME while executing the shell.
 
 echo $PERSON1 : " Hi $person2, Early to bed ok ? "
-echo $person2 : " Ok Sir."
+echo $person2 : " Okay Sir."
 echo $PERSON1 : "Bye Good Night."
 echo $person2 : "Bye."
