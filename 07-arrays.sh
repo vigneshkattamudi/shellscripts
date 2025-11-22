@@ -18,6 +18,6 @@ echo "Script started at: $TIMESTAMP"
 
 DEVOPS=("CLOUD" "AWS" "AZURE" "GCP")
 
-echo "First name is: ${DEVOPS[0]}
-echo "Second name is: ${DEVOPS[2]}
-echo "All names is: ${DEVOPS[@]}
+echo "First name is: ${DEVOPS[0]}"
+echo "Second name is: ${DEVOPS[2]}"
+echo "All names is: ${DEVOPS[@]}"
