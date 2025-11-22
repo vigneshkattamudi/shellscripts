@@ -3,8 +3,8 @@
 #shebang is the first line of shell script
 # (#) ->> This is comment
 
-DATE=$(date)
-echo "Script started at : $DATE"
+TIMESTAMP=$(date)
+echo "Script started at: $TIMESTAMP"
 
 echo Vignesh:: "Hi abhi, how are you ? "
 echo Abhi:: "I am good and you."
