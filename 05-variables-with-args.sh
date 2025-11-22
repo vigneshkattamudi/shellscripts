@@ -8,7 +8,7 @@ person2=$2 #Lower case
 #$2=It reads the Second argument
 #We have to give the NAME while executing the shell.
 
-echo $PERSON1 : " Hi $person2, how are you ? "
-echo $person2 : " I am good and you."
-echo $PERSON1 : "what's plans tonight."
-echo $person2 : "nothing much."
+echo $PERSON1: " Hi $person2, how are you ? "
+echo $person2: " I am good and you."
+echo $PERSON1: "what's plans tonight."
+echo $person2: "nothing much."
