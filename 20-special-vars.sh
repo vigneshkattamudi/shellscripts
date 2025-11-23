@@ -40,7 +40,7 @@ then
     echo "ngnix Already installed"
 else
     echo "Installing ngnix"
-    dnf install nginx -y
+    dnf install nginxx -y #
     VALIDATE $? "nginx"
 fi
 
