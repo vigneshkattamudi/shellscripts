@@ -5,7 +5,6 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-mkdir -p $LOGS_FOLDER
 
 LOGS_FOLDER="/var/logs/shell-scripts"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
@@ -19,6 +18,8 @@ VALIDATE(){
         exit 1
     fi
 }
+
+mkdir -p $LOGS_FOLDER 
 
 echo "Script executed at: $(date)"  &>>$LOG_FILE
 
