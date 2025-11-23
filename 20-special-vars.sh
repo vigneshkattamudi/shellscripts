@@ -10,7 +10,7 @@ echo "present wor dir: $PWD"
 echo "script name: $0"
 echo "script running by user: $USER"
 echo "PID of script: $$"
-sleep &
+sleep 10 &
 echo "PID of background script: $!"
 echo "exit status of last command $?"
 
