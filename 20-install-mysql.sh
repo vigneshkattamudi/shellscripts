@@ -7,7 +7,7 @@ N="\e[0m"
 
 mkdir -p LOGS_FOLDER
 
-LOGS_FOLDER="/var/log/shell-scripts"
+LOGS_FOLDER="/var/logs/shell-scripts"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 VALIDATE(){
