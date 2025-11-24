@@ -6,7 +6,7 @@ Y="\e[33m"
 N="\e[0m"
 
 LOGS="/var/log/shell-scripts"
-SCRIPT_NAME=$( $0 | cut -d "." -f1)
+SCRIPT_NAME=$( echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS
