@@ -5,13 +5,13 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-echo "Script started executing at:$(date)"
-
 LOGS="/var/log/shell-scripts"
 SCRIPT_NAME=$( $0 | cut -d "." -f1)
 LOG_FILE="$LOGS/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS
+
+echo "Script started executing at:$(date)" &>>$LOG_FILE
 
 USERID=$(id -u)
 if [ $USERID -eq 0 ] 
