@@ -33,7 +33,7 @@ VALIDATE(){
     fi
 }
 
-dnf list installed nginx -y &>>$LOG_FILE
+dnf list installed nginx &>>$LOG_FILE
 if [ $? -eq 0 ]
 then
     echo -e "$Y nginx Already installed... Nothing to do $N" &>>$LOG_FILE
@@ -43,7 +43,7 @@ else
     VALIDATE $? "nginx"
 fi
 
-dnf list installed python3 -y &>>$LOG_FILE
+dnf list installed python3 &>>$LOG_FILE
 if [ $? -eq 0 ]
 then
     echo -e "$Y python3 Already installed... Nothing to do $N" &>>$LOG_FILE
