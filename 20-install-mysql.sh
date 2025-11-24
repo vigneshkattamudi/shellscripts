@@ -8,6 +8,7 @@ N="\e[0m"
 LOGS_FOLDER="/var/logs/shellscript-logs"     # Folder to store logs
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )    # Extract script name without extension
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"     # Define full path for log file
+PACKAGES=("mysql" "nginx" "python3")
 
 mkdir -p $LOGS_FOLDER                         # Create logs directory if it doesn't exist
 echo "Script started Executing at : $(date)" | tee -a $LOG_FILE   # Log script start time
@@ -31,22 +32,15 @@ else
 fi
 }
 
-dnf list installed mysql &>>$LOG_FILE       # Check if MySQL is installed and log output
-if [ $? -eq 0 ]                             # If installed
-then
-    echo -e "Nothing to do...$Y mysql installed $N" | tee -a $LOG_FILE  # Log already installed
-else
-    echo "NOT installed.. Installing Now" | tee -a $LOG_FILE            # Log installation start
-    dnf install mysql -y &>>$LOG_FILE                                   # Install MySQL and log
-    VALIDATE $? mysql                                                   # Validate installation
-fi
-
-dnf list installed nginx &>>$LOG_FILE
-if [ $? -ne 0 ]
-then
-    echo "nginx is not installed... going to install it" | tee -a $LOG_FILE
-    dnf install nginx -y &>>$LOG_FILE
-    VALIDATE $? "nginx"
-else
-    echo -e "Nothing to do nginx... $Y already installed $N" | tee -a $LOG_FILE
-fi
+for package in ${PACKAGES[@]}
+do 
+    dnf list installed $package &>>$LOG_FILE       # Check if MySQL is installed and log output
+    if [ $? -eq 0 ]                             # If installed
+    then
+        echo -e "Nothing to do...$Y $package installed $N" | tee -a $LOG_FILE  # Log already installed
+    else
+        echo "$package NOT installed.. Installing Now" | tee -a $LOG_FILE            # Log installation start
+        dnf install mysql -y &>>$LOG_FILE                                   # Install MySQL and log
+        VALIDATE $? $package                                                   # Validate installation
+    fi
+done
