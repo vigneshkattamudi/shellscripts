@@ -32,7 +32,8 @@ else
 fi
 }
 
-for package in ${PACKAGES[@]}
+#for package in ${PACKAGES[@]}
+for package in $@
 do 
     dnf list installed $package &>>$LOG_FILE       # Check if MySQL is installed and log output
     if [ $? -eq 0 ]                             # If installed
