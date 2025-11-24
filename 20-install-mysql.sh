@@ -1,54 +1,51 @@
 #!/bin/bash
 
-# we are going to install mqsql nginx
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
-R="\e[31m"      # Red
-G="\e[32m"      # Green
-Y="\e[33m"      # Yellow
-N="\e[0m"       # Reset
+echo "Script started executing at:$(date)"
 
-LOGS_FOLDER="/var/logs/shellscript-logs"     # Folder to store logs
-SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )    # Extract script name without extension
-LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"     # Define full path for log file
-
-mkdir -p $LOGS_FOLDER                         # Create logs directory if it doesn't exist
-echo "Script started Executing at : $(date)" | tee -a $LOG_FILE   # Log script start time
-
-USERID=$(id -u)                               # Get current user ID
-if [ $USERID -eq 0 ]                          # Check if user is root
-then
-    echo -e "User is root...$G Proceed $N" | tee -a $LOG_FILE      # If root, log and continue
+USERID=$(id -u)
+if [ $USERID -eq 0 ] 
+then 
+    echo -e "$G ROOT... Proceed $N" &>>$LOG_FILE
 else
-    echo -e "$R ERROR : Run with Root $N " | tee -a $LOG_FILE      # If not root, log error
-    exit 1                                                          # Exit script
+    echo -e "$R ERROR... Run with root $N" &>>$LOG_FILE
+    exit 1 
 fi
 
-VALIDATE(){                                                    # Function to validate commands
-if [ $1 -eq 0 ]                                                 # Check exit status
-then
-    echo -e "Installing $2...$G SUCCESS $N" | tee -a $LOG_FILE  # Log success message
-else
-    echo -e "INSTALLATION $2..$R FAILED $N" | tee -a $LOG_FILE  # Log failure message
-    exit 1                                                      # Exit script
-fi
+LOGS="/var/log/shell-scripts"
+SCRIPT_NAME=$( $0 | cut -d "." -f1)
+LOG_FILE="$LOGS/$SCRIPT_NAME.log"
+
+VALIDATE(){
+    if [ $1 -eq 0 ]
+    then
+        echo -e "$G $2 Installed $N" &>>$LOG_FILE
+    else
+        echo -e "$R ERR: $2 not installed $N" &>>$LOG_FILE
+        exit 1
+    fi
 }
 
-dnf list installed mysql &>>$LOG_FILE       # Check if MySQL is installed and log output
-if [ $? -eq 0 ]                             # If installed
+dnf list installed nginx -y &>>$LOG_FILE
+if [ $? -eq 0 ]
 then
-    echo -e "Nothing to do...$Y mysql installed $N" | tee -a $LOG_FILE  # Log already installed
+    echo -e "$Y nginx Already installed... Nothing to do $N" &>>$LOG_FILE
 else
-    echo -e "NOT installed.. $Y Installing Now $N" | tee -a $LOG_FILE            # Log installation start
-    dnf install mysql -y &>>$LOG_FILE                                   # Install MySQL and log
-    VALIDATE $? mysql                                                   # Validate installation
+    echo -e "$G Going to install nginx $N" &>>$LOG_FILE
+    dnf install nginx -y
+    VALIDATE $? "nginx"
 fi
 
-dnf list installed nginx &>>$LOG_FILE
-if [ $? -ne 0 ]
+dnf list installed python3 -y &>>$LOG_FILE
+if [ $? -eq 0 ]
 then
-    echo "nginx is not installed... going to install it" | tee -a $LOG_FILE
-    dnf install nginx -y &>>$LOG_FILE
-    VALIDATE $? "nginx"
+    echo -e "$Y python3 Already installed... Nothing to do $N" &>>$LOG_FILE
 else
-    echo -e "Nothing to do nginx... $Y already installed $N" | tee -a $LOG_FILE
+    echo -e "$G Going to install python3 $N" &>>$LOG_FILE
+    dnf install python3 -y
+    VALIDATE $? "python3"
 fi
