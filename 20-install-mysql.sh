@@ -7,6 +7,12 @@ N="\e[0m"
 
 echo "Script started executing at:$(date)"
 
+LOGS="/var/log/shell-scripts"
+SCRIPT_NAME=$( $0 | cut -d "." -f1)
+LOG_FILE="$LOGS/$SCRIPT_NAME.log"
+
+mkdir -p $LOGS
+
 USERID=$(id -u)
 if [ $USERID -eq 0 ] 
 then 
@@ -16,9 +22,6 @@ else
     exit 1 
 fi
 
-LOGS="/var/log/shell-scripts"
-SCRIPT_NAME=$( $0 | cut -d "." -f1)
-LOG_FILE="$LOGS/$SCRIPT_NAME.log"
 
 VALIDATE(){
     if [ $1 -eq 0 ]
