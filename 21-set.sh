@@ -2,12 +2,13 @@
 
 START_TIME=$(date +%s)
 
-set -e
+# set -e
 
-failure(){
-    echo "FAILED AT: $1 $2"
-}
-trap 'failure "${LINENO}" "${BASH_COMMAND}"' ERR
+# failure(){
+#     echo "FAILED AT: $1 $2"
+# }
+
+# trap 'failure "${LINENO}" "${BASH_COMMAND}"' ERR
 
 USERID=$(id -u)
 R='\e[31m'
