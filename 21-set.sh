@@ -34,7 +34,7 @@ fi
 #for PACKAGES IN ${PACKAGES[@]}
 for item in $@
 do
-    dnf list $item &>>$LOG_FILE
+    dnf list installed $item &>>$LOG_FILE
     if [ $? -eq 0 ]
     then
         echo "Already $item installed...Nothing to do" | tee -a $LOG_FILE
