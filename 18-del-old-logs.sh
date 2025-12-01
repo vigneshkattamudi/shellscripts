@@ -38,6 +38,11 @@ FILES_TO_DELETE=$(find $SCRIPT_DIR -name "*.log" -mtime +14)
 
 while IFS= read -r file
 do
-    echo -e "$Y $file to delete $N"
     rm -rf $file
+    echo -e "$R $file deleted $N"
 done <<< 18-del-old-logs.sh
+
+END_TIME=$(date +%s)
+TOTAL_TIME=$(($END_TIME - $START_TIME))
+
+echo -e "Time taken to delete file $G $TOTAL_TIME Seconds $N"
