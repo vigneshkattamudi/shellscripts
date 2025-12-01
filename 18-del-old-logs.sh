@@ -18,18 +18,18 @@ START_TIME=$(date +%s)
 
 if [ $USERID -eq 0 ]
 then 
-    echo -e "$G User Root $N... Proceed"
+    echo -e "$G User Root $N... Proceed" | tee -a $LOG_FILE
 else
-    echo -e "$R ERR:: Run with Root $N"
+    echo -e "$R ERR:: Run with Root $N" | tee -a $LOG_FILE
     exit 1
 fi
 
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo -e "$G $2 is ... Success $N"
+        echo -e "$G $2 is ... Success $N" | tee -a $LOG_FILE
     else
-        echo -e "$R $2 is ... Failure $N"
+        echo -e "$R $2 is ... Failure $N" | tee -a $LOG_FILE
         exit 1
     fi
 }
@@ -38,11 +38,11 @@ FILES_TO_DELETE=$(find $SCRIPT_DIR -name "*.log" -mtime +14)
 
 while IFS= read -r file
 do
-    rm -rf $file
-    echo -e "$R $file deleted $N"
-done <<< 18-del-old-logs.sh
+    rm -rf $file | tee -a $LOG_FILE
+    echo -e "$R $file deleted $N" | tee -a $LOG_FILE
+done <<< $FILES_TO_DELETE
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME - $START_TIME))
 
-echo -e "Time taken to delete file $G $TOTAL_TIME Seconds $N"
+echo -e "Time taken to delete file $G $TOTAL_TIME Seconds $N" | tee -a $LOG_FILE
