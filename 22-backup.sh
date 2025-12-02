@@ -82,7 +82,7 @@ then
         do
             echo "Deleting file: $filepath" | tee -a $LOG_FILE
             rm -rf $filepath
-        done <<< $FILES
+        done <<< $FILES_TO_DELETE
         echo -e "Log files older than $DAYS from source directory removed ... $G SUCCESS $N"
     else
         echo -e "Zip file creation ... $R FAILURE $N"
