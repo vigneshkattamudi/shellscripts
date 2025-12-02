@@ -65,9 +65,24 @@ then
 fi
 
 FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +14)
-sudo dnf install zip -y
 
-if [ ! -z "$FILES" ]
+sudo dnf list installed zip
+if [ $? -eq 0 ]
+then
+    echo "Already ZIP installed...Nothing to do"
+else
+    echo "Need to install ZIP"
+    dnf install zip -y
+    if [ $? -eq 0 ]
+    then
+        echo "ZIP installed"
+    else
+        echo "ZIP installation FAILED"
+        exit 1
+    fi
+fi
+
+if [ ! -z "$FILES_TO_DELETE" ]
 then
     echo "Files to zip are: $FILES_TO_DELETE"
     TIMESTAMP=$(date +%F-%H-%M-%S)
